@@ -10,19 +10,17 @@ export default function EmailSender() {
   const handleSend = async () => {
     setStatus("Sending...");
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyVD1sku28Yr2j1u_QzCZ1sIe7iW58rRyb1Q_KzCUwNjRCc7wZEZqeUp10IpY3GaGgr0Q/exec",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            sheet: sheetName,
-            email: manualEmail || null,
-          }),
-        }
-      );
+      const response = await fetch("/api/send-emails", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    sheet: sheetName,
+    email: manualEmail || null,
+  }),
+});
+
       const data = await response.json();
       if (data.success) {
         setStatus("✅ Email(s) sent successfully!");
