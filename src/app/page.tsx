@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 
@@ -8,22 +8,25 @@ export default function EmailSender() {
   const [status, setStatus] = useState("");
 
   const handleSend = async () => {
-    setStatus("Sending...");
+    setStatus("🚀 Sending...");
     try {
-      const response = await fetch("/api/send-emails", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    sheet: sheetName,
-    email: manualEmail || null,
-  }),
-});
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbyVD1sku28Yr2j1u_QzCZ1sIe7iW58rRyb1Q_KzCUwNjRCc7wZEZqeUp10IpY3GaGgr0Q/exec",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            sheet: sheetName,
+            email: manualEmail || null,
+          }),
+        }
+      );
 
       const data = await response.json();
       if (data.success) {
-        setStatus("✅ Email(s) sent successfully!");
+        setStatus(`✅ Sent ${data.sent} email(s) successfully!`);
       } else {
         setStatus("❌ Failed to send emails.");
       }
@@ -35,9 +38,10 @@ export default function EmailSender() {
 
   return (
     <div className="p-4 max-w-md mx-auto shadow-xl rounded-2xl mt-10 bg-white">
-      <h2 className="text-2xl font-bold mb-4 text-black"> TEDx Tabary Email Sender</h2>
+      <h2 className="text-2xl font-bold mb-4 text-black">📧 TEDx Email Sender</h2>
+
       <div className="mb-4">
-        <label className="block mb-1 font-medium">Sheet Name</label>
+        <label className="block mb-1 font-medium text-black">📄 Sheet Name</label>
         <input
           type="text"
           value={sheetName}
@@ -47,7 +51,9 @@ export default function EmailSender() {
       </div>
 
       <div className="mb-4">
-        <label className="block mb-1 font-medium">Specific Email (optional)</label>
+        <label className="block mb-1 font-medium text-black">
+          🎯 Specific Email (optional)
+        </label>
         <input
           type="email"
           placeholder="someone@example.com"
@@ -59,12 +65,12 @@ export default function EmailSender() {
 
       <button
         onClick={handleSend}
-        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg w-full"
       >
-        🚀 Send Emails
+        Send Email(s)
       </button>
 
-      {status && <p className="mt-4 text-lg text-gray-700">{status}</p>}
+      {status && <p className="mt-4 text-gray-700 text-center text-lg">{status}</p>}
     </div>
   );
 }
