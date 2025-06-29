@@ -10,15 +10,15 @@ export default function EmailSender() {
     setStatus("🚀 Sending...");
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyVD1sku28Yr2j1u_QzCZ1sIe7iW58rRyb1Q_KzCUwNjRCc7wZEZqeUp10IpY3GaGgr0Q/exec", // ← غيّر ده بالرابط الحقيقي بتاع Google Script
+        "https://script.google.com/macros/s/AKfycbxPCZfDr6_Zqu7qq4a3L-OFG3rLAX6KfYrSLot3gR4P-omR-MXsnAvJRUe7XMo7DyEIIA/exec", // ← غيّر ده بالرابط الحقيقي بتاع Google Script
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            sheet: "Sheet1", // شيت ثابت
-            email: manualEmail || null, // لو فاضي هيبعت للكل
+            sheet: "Sheet1",
+            email: manualEmail || null,
           }),
         }
       );
@@ -38,7 +38,7 @@ export default function EmailSender() {
   return (
     <div className="p-6 max-w-md mx-auto shadow-lg rounded-2xl mt-12 bg-white">
       <h2 className="text-2xl font-bold mb-6 text-black text-center">
-        📬 TEDx Email Broadcaster
+        TEDx Email Broadcaster
       </h2>
 
       <label className="block mb-2 font-medium text-black">
